@@ -47,12 +47,25 @@ void HienThiDS(LIST &l){
 	for (NODE *p=l.pHead; p!=NULL; p=p->pNext)
 		printf("%d\t", p->data);
 }
-void XoaDau(LIST &l){
+void DeleteHead(LIST &l){
 	NODE *p=new NODE;
     p = l.pHead;
     l.pHead = l.pHead->pNext;
     p->pNext = NULL;
     delete p;
+}
+
+void DeleteTail(LIST &l)
+{
+    for(NODE *k = l.pHead; k != NULL; k = k ->pNext)
+    {
+        if(k->pNext == l.pTail)
+        {
+            delete l.pTail;
+            k->pNext = NULL;
+            l.pTail = k;
+        }
+    }
 }
 
 int main() {
@@ -65,14 +78,15 @@ int main() {
 	while (i<=n) {
 		NODE *p=new NODE;
 		p=CreateNode();
-		AddHead(l,p);
-//		AddTail(l,p); 
+//		AddHead(l,p);
+		AddTail(l,p); 
 		i++;
 	}
 	printf("Danh sach da nhap: \t");
 	HienThiDS(l);
 	
-	XoaDau(l);
+//	DeleteHead(l);
+	DeleteTail(l);
 	printf("\nDanh sach da xoa: \t");
 	HienThiDS(l);
 }
